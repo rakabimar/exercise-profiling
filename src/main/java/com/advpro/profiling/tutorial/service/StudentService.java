@@ -22,45 +22,39 @@ public class StudentService {
     private StudentCourseRepository studentCourseRepository;
 
     public List<StudentCourse> getAllStudentsWithCourses() {
-        List<Student> students = studentRepository.findAll();
         List<StudentCourse> studentCourses = studentCourseRepository.findAll();
-        List<StudentCourse> studentsWithCourses = new ArrayList<>();
 
-        Map<Long, Student> studentListByID = new HashMap<Long, Student>();
+        Map<Long, Student> studentMap = new HashMap<>();
+        List<Student> students = studentRepository.findAll();
         for (Student student : students) {
-            studentListByID.put(student.getId(), student);
+            studentMap.put(student.getId(), student);
         }
+
+        List<StudentCourse> result = new ArrayList<>();
         for (StudentCourse studentCourse : studentCourses) {
-            Student student = studentListByID.get(studentCourse.getStudent().getId());
+            Student student = studentMap.get(studentCourse.getStudent().getId());
             StudentCourse newStudentCourse = new StudentCourse();
             newStudentCourse.setStudent(student);
             newStudentCourse.setCourse(studentCourse.getCourse());
-            studentsWithCourses.add(newStudentCourse);
+            result.add(newStudentCourse);
         }
-        return studentsWithCourses;
+        return result;
     }
 
     public Optional<Student> findStudentWithHighestGpa() {
-        List<Student> students = studentRepository.findAll();
-        Student highestGpaStudent = null;
-        double highestGpa = 0.0;
-        for (Student student : students) {
-            if (student.getGpa() > highestGpa) {
-                highestGpa = student.getGpa();
-                highestGpaStudent = student;
-            }
-        }
-        return Optional.ofNullable(highestGpaStudent);
+        return studentRepository.findFirstByOrderByGpaDesc();
     }
 
     public String joinStudentNames() {
         List<Student> students = studentRepository.findAll();
         StringBuilder resultBuilder = new StringBuilder();
-        for (Student student : students){
+
+        for (Student student : students) {
             resultBuilder.append(student.getName()).append(", ");
         }
-        if (resultBuilder.length() > 2){
-            resultBuilder.setLength(resultBuilder.length() - 2);
+
+        if (!resultBuilder.isEmpty()) {
+            resultBuilder.delete(resultBuilder.length() - 2, resultBuilder.length());
         }
         return resultBuilder.toString();
     }
