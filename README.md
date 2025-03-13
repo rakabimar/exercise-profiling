@@ -45,7 +45,7 @@ After analyzing profiling and performance testing results, I implement optimizat
 - Improvements by Optimizing `getAllStudentWithCourses()`:
 
   | Before | After  | Diff Percentage |
-    |--------|--------| -- |
+  |--------|--------| -- |
   | 44956 ms | 5327 ms | 88.1% |
 
 ### **Endpoint** `/all-students-name`
@@ -58,7 +58,7 @@ After analyzing profiling and performance testing results, I implement optimizat
 - Improvements by Optimizing `joinStudentNames()`:
 
   | Before | After  | Diff Percentage |
-    |--------|--------| -- |
+  |--------|--------| -- |
   | 1808 ms | 124 ms | 93.1% |
 
 ### **Endpoint** `/highest-gpa`
@@ -71,7 +71,7 @@ After analyzing profiling and performance testing results, I implement optimizat
 - Improvements by Optimizing `findStudentWithHighestGpa()`:
 
   | Before | After  | Diff Percentage |
-      |--------|--------| -- |
+  |--------|--------| -- |
   | 1808 ms | 124 ms | 93.1% |
 
 
